@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Register Your Account</title>
+</head>
+
+
+<body>
+
+<div id="renderbg"> <!-- RenderBG START --></div> <!-- RenderBG END -->
+
+<div class="testbox">
+  <h1>Registration</h1>
+
+  <form action="../account.php" method="POST">
+      <hr>
+    <div class="accounttype">
+
+    <input type="radio" value="0" id="sex" name="sex" checked/>
+    <label for="male" class="radio" chec>Male</label>
+    <input type="radio" value="1" id="female" name="sex" />
+    <label for="female" class="radio">Female</label>
+ 
+    </div>
+  <hr>
+<center>
+	<input type="text" name="name" id="name" placeholder="Email" required>
+
+	<input type="text" name="username" id="name" placeholder="Name" required>
+
+	<input type="password" name="password" id="name" placeholder="Password" required>
+	<input type="password" name="confirm" id="name" placeholder="Password" required>
+	<input style="margin-bottom:25px;" type="password" name="name" id="name" placeholder="Confirm Password" required>
+    </center>
+
+   <p>By clicking Register, you agree on our <a href="#">terms and condition</a>.</p>
+   <a href="#" class="button" type="submit"class="button">Register</a>
+  </form>
+</div>
+<script>
+function myFunction() {
+    var x = document.getElementById("name").required;
+
+}
+</script>
+</body>
+</html>
