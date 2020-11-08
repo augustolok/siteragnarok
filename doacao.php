@@ -40,6 +40,30 @@ $_SESSION[$CONFIG_name.'jobs'] = readjobs();
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script type="text/javascript" language="javascript" src="ceres.js"></script>
+		<script>
+
+			function enviaPagseguro(){
+			$.post('pagar.php',{
+				qtdinformado: $('#qtd').val(),
+				id: '<?php echo $_SESSION['Ragnarokuserid'];?>'
+			},function(data){
+			$('#code').val(data);
+			$('#comprar').submit();
+			})
+			}
+			function mudarvalor(){
+				let valor = $('#qtd').val();
+				let resultado = parseFloat(valor)*100;
+				$('#cash').val(resultado);
+			}
+
+		</script>
+		<style>
+		.midiasocial{
+			margin-left: 30%;
+		}
+		</style>
+
 	</head>
 	<body class="left-sidebar is-preload">
 		<div id="page-wrapper">
@@ -53,9 +77,11 @@ $_SESSION[$CONFIG_name.'jobs'] = readjobs();
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="indexpg.php">Home</a></li>
+								<li><a href="index.php">Home</a></li>
 								<li ><a href="cadastro.php">Cadastro</a></li>
 								<li><a href="info.php">Informação</a></li>
+								<li ><a href="download.php">Download</a></li>
+								<li ><a href="/forum">Forum</a></li>
 								
 							</ul>
 						</nav>
@@ -128,17 +154,17 @@ $_SESSION[$CONFIG_name.'jobs'] = readjobs();
 					</table>
 
 
-		<script type="text/javascript">
+							<script type="text/javascript">
 
 
-			LINK_ajax('login.php', 'login_div');
+								LINK_ajax('login.php', 'login_div');
 
-			login_hide(1);
+								login_hide(1);
 
-			server_status();
-			hidecadastro();
+								server_status();
+								hidecadastro();
 
-		</script>
+							</script>
 								
 								<!--- fim do login--->
 									</section>
@@ -150,40 +176,43 @@ $_SESSION[$CONFIG_name.'jobs'] = readjobs();
 								<!-- Content -->
 									<article class="box post">
 									<p>
-									eeeeeeeee
+									
 										<?php   if (!empty($_SESSION['Ragnarokuserid'])) {
 										?>
 										fazer Doação
 									<!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
-<form action="https://ws.sandbox.pagseguro.uol.com.br/v2/payment.htm" method="post" onsubmit="PagSeguroLightbox(this); return false;">
-<!-- NÃO EDITE OS COMANDOS <form action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;"> DAS LINHAS ABAIXO -->
-<<!-- Campos obrigatórios -->  
-  <!-- Campos obrigatórios -->  
-  <input name="receiverEmail" type="hidden" value="suporte@lojamodelo.com.br">  
-        <input name="currency" type="hidden" value="BRL">  
-  
-        <!-- Itens do pagamento (ao menos um item é obrigatório) -->  
-        <input name="itemId1" type="hidden" value="0001">  
-        <input name="itemDescription1" type="hidden" value="Ragnadraam">  
-        <input name="itemAmount1" type="hidden" value="1.00">  
-        <input name="itemQuantity1" type="number" value="1">  
-        <input name="itemWeight1" type="hidden" value="1">
-  
-        <!-- Código de referência do pagamento no seu sistema (opcional) -->  
-        <input name="reference" type="hidden" value="<?php echo $_SESSION['Ragnarokuserid']?>">  
-          
-    
-  
-       
-  
-        <!-- submit do form (obrigatório) -->  
-        <input alt="Pague com PagSeguro" name="submit"  type="image"  
-src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/120x53-pagar.gif"/> 
-</form>
-<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
-<!-- FINAL produção <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script> -->
-<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+									<h1>Lembrando que você esta comprando Cash.</h1>
+									<h4>Cash uma modea virtual que  você poderá  troca por item,comida e item visual dentro do game!</h4> <Br></Br> <h5>poderá pedir reembosol somente se não gastar o cash! Caso deseje reembolsar entrar contato  com Ragnadream pelo discord.</h5>
+										
+										<br>
+										<div class="row">
+											<div  class="col-12 mt-2">
+												<p>digite  valor
+												<input type="number" name="qtdinformado" id="qtd" value="" onchange="mudarvalor()"/>
+											</div>
+											<div class="col-12 mt-1">
+												total cash
+												<input type="number" id="cash"  value="" readonly>
+											</div>
+											<div class="col-12 col-sm-6">	
+											<button onclick="enviaPagseguro()" >Comprar</button>
+											</div>
+											</p>
+										</div>
+										<h5>Cash será liberado automaticamente caso não ocorra entrar em contato pelo discord.</h5>
+										<div>
+										<form id="comprar" action="https://pagseguro.uol.com.br/v2/checkout/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
 
+										<input type="hidden" name="code" id="code" value="" />
+
+										</form>
+										<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+
+										<!--<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+										<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+										<!-- FINAL produção <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script> -->
+										<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+												
 
 										<?php	
 										} else {?>
@@ -208,127 +237,80 @@ src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/120x53-pagar.gi
 				</section>
 
 			<!-- Footer -->
-				<section id="footer">
+			<section id="footer">
 					<div class="container">
 						<div class="row">
 							<div class="col-8 col-12-medium">
-								<section>
+							<section>
 									<header>
-										<h2>Blandit nisl adipiscing</h2>
+										<h2>Notícias</h2>
 									</header>
 									<ul class="dates">
 										<li>
-											<span class="date">Jan <strong>27</strong></span>
-											<h3><a href="#">Lorem dolor sit amet veroeros</a></h3>
-											<p>Ipsum dolor sit amet veroeros consequat blandit ipsum phasellus lorem consequat etiam.</p>
+											<span class="date">Maio <strong>1</strong></span>
+											<h3><a href="https://ragnadreamro.online/forum/index.php?/topic/4-vote-point-por-cash/">Inauguração</a></h3>
+											<p>Começa uma nova jornada.</p>
 										</li>
 										<li>
-											<span class="date">Jan <strong>23</strong></span>
-											<h3><a href="#">Ipsum sed blandit nisl consequat</a></h3>
-											<p>Blandit phasellus lorem ipsum dolor tempor sapien tortor hendrerit adipiscing feugiat lorem.</p>
+											<span class="date">Maio <strong>1</strong></span>
+											<h3><a href="https://ragnadreamro.online/forum/index.php?/topic/8-pack-guild/">Pack Guild</a></h3>
+											<p>Começa uma nova jornada.</p>
 										</li>
 										<li>
-											<span class="date">Jan <strong>15</strong></span>
-											<h3><a href="#">Magna tempus lorem feugiat</a></h3>
-											<p>Dolore consequat sed phasellus lorem sed etiam nullam dolor etiam sed amet sit consequat.</p>
+											<span class="date">Maio <strong>2</strong></span>
+											<h3><a href="https://ragnadreamro.online/forum/index.php?/topic/7-os-pioneiros/">Evento Os pioneiros</a></h3>
+											<p>Começa uma nova jornada.</p>
 										</li>
 										<li>
-											<span class="date">Jan <strong>12</strong></span>
-											<h3><a href="#">Dolore tempus ipsum feugiat nulla</a></h3>
-											<p>Feugiat lorem dolor sed nullam tempus lorem ipsum dolor sit amet nullam consequat.</p>
+											<span class="date">Maio <strong>15</strong></span>
+											<h3><a href="https://ragnadreamro.online/forum/index.php?/topic/10-renova%C3%A7%C3%A3o-da-f%C3%A9/">Nova Quest Renovação da fé</a></h3>
+											<p>Começa uma nova jornada.</p>
 										</li>
 										<li>
-											<span class="date">Jan <strong>10</strong></span>
-											<h3><a href="#">Blandit tempus aliquam?</a></h3>
-											<p>Feugiat sed tempus blandit tempus adipiscing nisl lorem ipsum dolor sit amet dolore.</p>
+											<span class="date">Maio <strong>17</strong></span>
+											<h3><a href="https://ragnadreamro.online/forum/index.php?/topic/11-grupo-eden/">Grupo Eden</a></h3>
+											<p>agora pode upar fazendo quest caça ou entrega item até 99/70</p>
 										</li>
+										
 									</ul>
 								</section>
 							</div>
 							<div class="col-4 col-12-medium">
 								<section>
 									<header>
-										<h2>What's this all about?</h2>
+										<h2>Quem somos nós?</h2>
 									</header>
 									<a href="#" class="image featured"><img src="images/pic10.jpg" alt="" /></a>
 									<p>
-										This is <strong>Dopetrope</strong> a free, fully responsive HTML5 site template by
-										<a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a> It's released for free under
-										the <a href="http://html5up.net/license/">Creative Commons Attribution</a> license so feel free to use it for any personal or commercial project &ndash; just don't forget to credit us!
-									</p>
+										Apenas mais uma fã de  <strong>Ragnarok</strong> com o objetivo de divertir
+										 upando, fazendo a comunidade se encangar mais.
+										</p>
 									<footer>
 										<ul class="actions">
-											<li><a href="#" class="button">Find out more</a></li>
+											<li><a href="#" class="button">jogue Ragnadream</a></li>
 										</ul>
 									</footer>
 								</section>
 							</div>
-							<div class="col-4 col-6-medium col-12-small">
+							
+							
+							<div class="col-8 col-12-medium justify-center midiasocial" > 
 								<section>
 									<header>
-										<h2>Tempus consequat</h2>
-									</header>
-									<ul class="divided">
-										<li><a href="#">Lorem ipsum dolor sit amet sit veroeros</a></li>
-										<li><a href="#">Sed et blandit consequat sed tlorem blandit</a></li>
-										<li><a href="#">Adipiscing feugiat phasellus sed tempus</a></li>
-										<li><a href="#">Hendrerit tortor vitae mattis tempor sapien</a></li>
-										<li><a href="#">Sem feugiat sapien id suscipit magna felis nec</a></li>
-										<li><a href="#">Elit class aptent taciti sociosqu ad litora</a></li>
-									</ul>
-								</section>
-							</div>
-							<div class="col-4 col-6-medium col-12-small">
-								<section>
-									<header>
-										<h2>Ipsum et phasellus</h2>
-									</header>
-									<ul class="divided">
-										<li><a href="#">Lorem ipsum dolor sit amet sit veroeros</a></li>
-										<li><a href="#">Sed et blandit consequat sed tlorem blandit</a></li>
-										<li><a href="#">Adipiscing feugiat phasellus sed tempus</a></li>
-										<li><a href="#">Hendrerit tortor vitae mattis tempor sapien</a></li>
-										<li><a href="#">Sem feugiat sapien id suscipit magna felis nec</a></li>
-										<li><a href="#">Elit class aptent taciti sociosqu ad litora</a></li>
-									</ul>
-								</section>
-							</div>
-							<div class="col-4 col-12-medium">
-								<section>
-									<header>
-										<h2>Vitae tempor lorem</h2>
+										<h2>Suporte?</h2>
 									</header>
 									<ul class="social">
-										<li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li>
-										<li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li>
-										<li><a class="icon brands fa-dribbble" href="#"><span class="label">Dribbble</span></a></li>
-										<li><a class="icon brands fa-tumblr" href="#"><span class="label">Tumblr</span></a></li>
-										<li><a class="icon brands fa-linkedin-in" href="#"><span class="label">LinkedIn</span></a></li>
+										<li><a class="icon brands fa-facebook-f" href="https://discord.gg/cM3vxeG"><span class="label">Facebook</span></a></li>
+										<li><a class="icon brands fa-twitter" href="https://discord.gg/cM3vxeG"><span class="label">Twitter</span></a></li>
+										<li><a class="icon brands fa-discord" href="https://discord.gg/cM3vxeG"><span class="label">Discord</span></a></li>
 									</ul>
-									<ul class="contact">
-										<li>
-											<h3>Address</h3>
-											<p>
-												Untitled Incorporated<br />
-												1234 Somewhere Road Suite<br />
-												Nashville, TN 00000-0000
-											</p>
-										</li>
-										<li>
-											<h3>Mail</h3>
-											<p><a href="#">someone@untitled.tld</a></p>
-										</li>
-										<li>
-											<h3>Phone</h3>
-											<p>(800) 000-0000</p>
-										</li>
-									</ul>
+								
 								</section>
 							</div>
-							<div class="col-12">
+							<div class="col-12 justify-center">
 
 								<!-- Copyright -->
-								<div id="copyright">
+									<div id="copyright">
 										<ul class="links">
 											<li>&copy; RagnaDream.</li><li>Design: <a href="#">Augusto Perez</a></li>
 										</ul>
